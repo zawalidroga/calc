@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import BtnMain from "./btns/btn_main";
 import ScreenMain from "./screen/screen_main";
 
 
 function App() {
+  [ numbHolder, setNumbHolder ] = useState();
 
   const keys = [
     '%',
@@ -27,7 +29,6 @@ function App() {
     '='
   ];
   const btnHolder = [];
-  const numbHolder = [];
   const momentaryNumbHolder = [];
   let result = 0;
   
