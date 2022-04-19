@@ -6,10 +6,6 @@ import BtnMain from "./btns/btn_main";
 function App() {
 
   const [ screen, setScreen ] = useState(0)
-  const [ result, setResult ] = useState(0)
-  const numbHolder = []
-  
-
   const keys = [
     '%',
     'CE',
@@ -33,15 +29,20 @@ function App() {
     '='
   ];
   const btnHolder = [];
-  const momentaryNumbHolder = [];
   
+  
+  const screenMaker = (numbHolders, momentaryNumbHolder, result) => {
+    if(numbHolders.length == 0 && momentaryNumbHolder == 0){
+      return result
+    }
+  }
 
 
   
   const btnMaker = () => {
     
     for( let i = 0; i < 20; i++ ) {
-      btnHolder.push(BtnMain(keys[i], numbHolder, momentaryNumbHolder, result))
+      btnHolder.push(BtnMain(keys[i], screenMaker))
     }
     
   }
@@ -52,7 +53,7 @@ function App() {
   return (
     <div className="App">
       <div className='screen'>
-        { result }
+        { screenMaker }
       </div>
       <div className='keyboard'>
         {btnHolder.map(el => {return el})}

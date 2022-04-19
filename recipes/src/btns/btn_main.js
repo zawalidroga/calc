@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
-function BtnMain(btnMainTxt, numbHolder, momentaryNumbHolder, result) {
+function BtnMain(btnMainTxt, screenMaker) {
 
-    let numb = 0;
+    const [result, setResult] = useState()
+    const [numbHolder, setNumbHolder] = useState([])
+    const [momentaryNumbHolder, setMomentaryNumbHolder] = useState([])
+    const [numb, setNumb] = useState(0)
     
-
     
     const numbPusher = () => {
         switch (btnMainTxt) {
             case 'C':
                 //trzeba użyć screenHoldera
-                momentaryNumbHolder = [];
+                setMomentaryNumbHolder([]);
 
                 break;
             case '%':
@@ -20,12 +22,12 @@ function BtnMain(btnMainTxt, numbHolder, momentaryNumbHolder, result) {
                     numbPer = numbPer + e;
                     console.log(numbPer)
                 });
-                momentaryNumbHolder.push(numb/100);
+                setMomentaryNumbHolder([...numb/100]);
                 break;
             case 'CE':
-                momentaryNumbHolder = [];
-                numbHolder = [];
-                numb = 0;
+                setMomentaryNumbHolder([]);
+                setNumbHolder([]);
+                setNumb(0);
                 break;
             case '/':
             case '-':
@@ -34,45 +36,47 @@ function BtnMain(btnMainTxt, numbHolder, momentaryNumbHolder, result) {
                 momentaryNumbHolder.map((e) => {
                     numb = numb + e;
                 });
-                numbHolder.push(btnMainTxt)
-                numbHolder.push(parseInt(numb));
-                momentaryNumbHolder.length = 0;
-                numb = 0;
+                setNumbHolder([...btnMainTxt])
+                setNumbHolder([...parseInt(numb)]);
+                setMomentaryNumbHolder([]);
+                setNumb(0);
             break;
             case '=':
                 momentaryNumbHolder.map((e) => {
-                    numb = numb + e;
+                    setNumb(numb + e);
                 });
                 //numbHolder.push(parseInt(numb));
-                momentaryNumbHolder.length = 0;
+                setMomentaryNumbHolder([]);
                 
 
                 switch (numbHolder[0]) {
                     case '+':
-                        result = numbHolder[1] + numb;
+                        setResult(numbHolder[1] + numb);
                         break;
                     case '-':
-                        result = numbHolder[1] - numb;
+                        setResult(numbHolder[1] + numb);
                         break;
                     case 'X':
-                        result = numbHolder[1] * numb;
+                        setResult(numbHolder[1] + numb);
                         break;
                     case '/':
                         if (numbHolder[2] === 0) {
-                            result = 'ERR 101'
+                            setResult('ERR 101')
                         } else {
-                            result = numbHolder[1] / numb;
+                            setResult(numbHolder[1] / numb);
                         };
                         break;
                     default:
-                    result = 'ERR 100'
+                    setResult('ERR 100')
                 }
-                numbHolder.length = 0;
-                numb = 0;
-                momentaryNumbHolder.length = 0;
+                setNumbHolder([]);
+                setNumb(0);
+                setMomentaryNumbHolder([]);
+
+                screenMaker(numbHolder, momentaryNumbHolder, result);
                 break;
             default:
-                momentaryNumbHolder.push(parseInt(btnMainTxt));
+                setMomentaryNumbHolder(arr => [...arr, parseInt(btnMainTxt)]);
             
         }
 
