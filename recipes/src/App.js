@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import BtnMain from "./btns/btn_main";
-import ScreenMain from "./screen/screen_main";
+
 
 
 function App() {
-  [ numbHolder, setNumbHolder ] = useState();
+
+  const [ screen, setScreen ] = useState(0)
+  const [ result, setResult ] = useState(0)
+  const numbHolder = []
+  
 
   const keys = [
     '%',
@@ -30,7 +34,9 @@ function App() {
   ];
   const btnHolder = [];
   const momentaryNumbHolder = [];
-  let result = 0;
+  
+
+
   
   const btnMaker = () => {
     
@@ -40,17 +46,13 @@ function App() {
     
   }
   
-  //const screenMaker = (e) => {
-  
-  //}
-
   
   btnMaker();
   console.log(btnHolder)
   return (
     <div className="App">
       <div className='screen'>
-  
+        { result }
       </div>
       <div className='keyboard'>
         {btnHolder.map(el => {return el})}

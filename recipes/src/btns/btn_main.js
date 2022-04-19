@@ -45,6 +45,7 @@ function BtnMain(btnMainTxt, numbHolder, momentaryNumbHolder, result) {
                 });
                 //numbHolder.push(parseInt(numb));
                 momentaryNumbHolder.length = 0;
+                
 
                 switch (numbHolder[0]) {
                     case '+':
@@ -58,15 +59,15 @@ function BtnMain(btnMainTxt, numbHolder, momentaryNumbHolder, result) {
                         break;
                     case '/':
                         if (numbHolder[2] === 0) {
-                            result = 'ERR'
+                            result = 'ERR 101'
                         } else {
                             result = numbHolder[1] / numb;
                         };
                         break;
                     default:
-                    result = 'ERR'
+                    result = 'ERR 100'
                 }
-                numbHolder = [];
+                numbHolder.length = 0;
                 numb = 0;
                 momentaryNumbHolder.length = 0;
                 break;
